@@ -13,8 +13,8 @@
                 Password Length
               </label>
               <div class="col-md-8">
-                <input type="number" name="length" class="form-control" id="length" min="4" max="16" value="{{options.length}}">
-                <small class="text-muted form-text">Length is available between 4 ~ 16</small>
+                <input type="number" name="length" class="form-control" id="length" min="4" max="20" value="{{options.length}}">
+                <small class="text-muted form-text">Length is available between 4 ~ 20</small>
               </div>
             </div>
 
@@ -70,7 +70,11 @@
 
             {{#if password}}
             <div class="alert alert-info" role="alert">
-              <span class="mr-2">Your password is:</span> <code>{{password}}</code>
+              <span class="mr-2">Your password is:</span>
+              <code id="generated-password">{{password}}</code>
+              <button class="btn btn-sm btn-outline-secondary ml-2" onclick="copyPassword()">
+                <i class="fas fa-clipboard"></i>
+              </button>
             </div>
             {{/if}}
             <button class="btn btn-success" type="submit">Generate Password</button>
@@ -84,3 +88,16 @@
     </div>
   </div>
 </div>
+
+<script>
+  function copyPassword() {
+    const passwordElement = document.getElementById('generated-password');
+    const password = passwordElement.textContent;
+
+    navigator.clipboard.writeText(password).then(() => {
+      alert('Password copied to clipboard!');
+    }).catch(err => {
+      console.error('Failed to copy password: ', err);
+    });
+  }
+</script>
